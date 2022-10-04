@@ -18,24 +18,24 @@ let spaceship = squares[spaceshipIndex]
 
 //green aliens
 for(g = 0 ; g < cells.length - 270; g++){
-    cells[g].classList.add('green-alien')
+    cells[g].classList.add('green-alien', 'invader')
 }
 //red aliens
 for(r = 19 ; r < cells.length - 251; r++){
-    cells[r].classList.add('red-alien')
+    cells[r].classList.add('red-alien', 'invader')
 }
 //yellow aliens
 for(y = 38 ; y < cells.length - 232; y++){
-    cells[y].classList.add('yellow-alien')
+    cells[y].classList.add('yellow-alien', 'invader')
 }
 //purple aliens
+
 for(p = 57 ; p < cells.length - 213; p++){
-    cells[p].classList.add('purple-alien')
+ cells[p].classList.add('purple-alien', 'invader')
 }
-    
 
-
-
+let purpleAlien = document.getElementsByClassName('purple-alien')
+console.log(purpleAlien)
 
 
 const moveSpaceship = (e) => {
@@ -48,8 +48,19 @@ const moveSpaceship = (e) => {
         squares[missileIndex].classList.remove('missile')
         missileIndex -= 19
         squares[missileIndex].classList.add('missile')
+        console.log(squares[missileIndex])
+        
+        if (squares[missileIndex].classList.contains('invader')){
+            if (squares[missileIndex].classList.contains('invader')){
+                squares[missileIndex].classList.remove('purple-alien') 
+                squares[missileIndex].classList.remove('missile')  
+            }  
+         
+        }
+
         }
     }
+   
     //spaceshop moves from div 247 - 265 
     switch (e.key) {
         case "ArrowLeft":
@@ -68,7 +79,6 @@ const moveSpaceship = (e) => {
         break;
         case "ArrowUp":
             shoot = setInterval(moveMissile, 150)
-           
         break;
     }
     //after breaking out of the switch statement create a
@@ -76,6 +86,9 @@ const moveSpaceship = (e) => {
     squares[spaceshipIndex].classList.add('spaceship')
     squares[missileIndex].classList.remove('missile')
 }
+
+
+// console.log(hit)
 
 
 
