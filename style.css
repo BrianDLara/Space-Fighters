@@ -46,7 +46,7 @@ h1 {
 
 }
 
-#div0,
+/* #div0,
 #div1,
 #div2,
 #div3,
@@ -113,4 +113,20 @@ h1 {
 #div70,
 #div71 {
     background-color: yellow;
+} */
+
+.green-alien {
+    background-color: green !important;
+}
+
+.red-alien {
+    background-color: red !important;
+}
+
+.yellow-alien {
+    background-color: yellow !important;
+}
+
+.purple-alien {
+    background-color: purple !important;
 }

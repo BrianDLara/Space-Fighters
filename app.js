@@ -10,20 +10,27 @@ let spaceshipIndex = 256
 let containerWidth = 19;
 const cells = document.querySelectorAll('.cells')
 let squares = Array.from(cells);
-console.log(squares)
 squares[spaceshipIndex].classList.add('spaceship')
 let spaceship = squares[spaceshipIndex]
 
-const a = [ 
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11, 12, 13, 14, 
-    19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
-    38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52
-]
 
-for (let j=0; j < 14 ; j++){
-    let greenAliens = squares.className = 'green-aliens';
-    console.log(greenAliens)
 
+
+//green aliens
+for(g = 0 ; g < cells.length - 270; g++){
+    cells[g].classList.add('green-alien')
+}
+//red aliens
+for(r = 19 ; r < cells.length - 251; r++){
+    cells[r].classList.add('red-alien')
+}
+//yellow aliens
+for(y = 38 ; y < cells.length - 232; y++){
+    cells[y].classList.add('yellow-alien')
+}
+//purple aliens
+for(p = 57 ; p < cells.length - 213; p++){
+    cells[p].classList.add('purple-alien')
 }
     
 
