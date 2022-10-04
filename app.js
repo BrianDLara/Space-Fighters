@@ -12,26 +12,27 @@ const cells = document.querySelectorAll('.cells')
 let squares = Array.from(cells);
 squares[spaceshipIndex].classList.add('spaceship')
 let spaceship = squares[spaceshipIndex]
+let shoot;
 
 
 
 
 //green aliens
 for(g = 0 ; g < cells.length - 270; g++){
-    cells[g].classList.add('green-alien', 'invader')
+    cells[g].classList.add('green-alien', 'alien')
 }
 //red aliens
 for(r = 19 ; r < cells.length - 251; r++){
-    cells[r].classList.add('red-alien', 'invader')
+    cells[r].classList.add('red-alien', 'alien')
 }
 //yellow aliens
 for(y = 38 ; y < cells.length - 232; y++){
-    cells[y].classList.add('yellow-alien', 'invader')
+    cells[y].classList.add('yellow-alien', 'alien')
 }
 //purple aliens
 
 for(p = 57 ; p < cells.length - 213; p++){
- cells[p].classList.add('purple-alien', 'invader')
+ cells[p].classList.add('purple-alien', 'alien')
 }
 
 let purpleAlien = document.getElementsByClassName('purple-alien')
@@ -39,7 +40,6 @@ console.log(purpleAlien)
 
 
 const moveSpaceship = (e) => {
-    let shoot;
     let missileIndex = spaceshipIndex
     // removes the last spaceship class, if not they just clone themselves
     squares[spaceshipIndex].classList.remove('spaceship')
@@ -50,15 +50,27 @@ const moveSpaceship = (e) => {
         squares[missileIndex].classList.add('missile')
         console.log(squares[missileIndex])
         
-        if (squares[missileIndex].classList.contains('invader')){
-            if (squares[missileIndex].classList.contains('invader')){
+        if (squares[missileIndex].classList.contains('purple-alien')){
                 squares[missileIndex].classList.remove('purple-alien') 
-                squares[missileIndex].classList.remove('missile')  
-            }  
-         
-        }
+                squares[missileIndex].classList.remove('missile') 
+                clearInterval(shoot)
+        }else if(squares[missileIndex].classList.contains('yellow-alien')){
+            squares[missileIndex].classList.remove('yellow-alien')
+            squares[missileIndex].classList.remove('missile') 
+            clearInterval(shoot)
+        }else if(squares[missileIndex].classList.contains('red-alien')){
+            squares[missileIndex].classList.remove('red-alien') 
+            squares[missileIndex].classList.remove('missile') 
+            clearInterval(shoot)
+        }else if(squares[missileIndex].classList.contains('green-alien')){
+            squares[missileIndex].classList.remove('green-alien') 
+            squares[missileIndex].classList.remove('missile') 
+            clearInterval(shoot)
 
         }
+        
+        }
+        
     }
    
     //spaceshop moves from div 247 - 265 
