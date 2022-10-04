@@ -67,7 +67,7 @@ const moveSpaceship = (e) => {
             }
         break;
         case "ArrowUp":
-            shoot = setInterval(moveMissile, 100)
+            shoot = setInterval(moveMissile, 150)
            
         break;
     }

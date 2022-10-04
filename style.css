@@ -47,7 +47,10 @@ h1 {
 }
 
 .missile {
-    background-color: blue;
+    background-image: url(' ../images/missile.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 /* #div0,
@@ -120,17 +123,29 @@ h1 {
 } */
 
 .green-alien {
-    background-color: green !important;
+    background-image: url(' ../images/green-alien.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .red-alien {
-    background-color: red !important;
+    background-image: url(' ../images/red-alien.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .yellow-alien {
-    background-color: yellow !important;
+    background-image: url(' ../images/yellow-alien.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .purple-alien {
-    background-color: purple !important;
+    background-image: url(' ../images/purple-alien.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
