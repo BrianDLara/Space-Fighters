@@ -3,23 +3,45 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
+    flex-direction: column;
+    background-image: url('../images/space.jpg');
+    background-size: cover;
+}
 
+h1 {
+    font-family: 'Thumbs Down', sans-serif;
+    font-style: italic;
+    font-size: 4.5rem;
+    color: white;
+    text-shadow: 0 0 1px purple,
+        0 0 6px purple,
+        0 0 12px purple,
+        0 0 30px purple,
+        0 0 60px purple;
+    ;
 }
 
 
 .cells {
-    border: 1px solid black;
+    border: 1px solid white;
 }
 
 #container {
     display: grid;
     grid-template-columns: 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px;
-    grid-template-rows: 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px;
+    grid-template-rows: 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px;
+    border: 2px solid purple;
+    box-shadow:
+        0 0 4px purple,
+        0 0 8px purple,
+        0 0 30px purple,
+        0 0 60px purple;
 }
 
-#div256 {
+.spaceship {
     background-image: url(' ../images/space-ship.png');
     background-size: contain;
     background-repeat: no-repeat;
-    padding-left: 4px;
+    background-position: center;
+
 }
