@@ -7,6 +7,7 @@ for (let i=0; i < 285 ; i++){
 }
 
 let spaceshipIndex = 256
+let missileIndex = spaceshipIndex
 let containerWidth = 19;
 const cells = document.querySelectorAll('.cells')
 let squares = Array.from(cells);
@@ -35,7 +36,12 @@ for(p = 57 ; p < cells.length - 213; p++){
     
 
 
+const moveMissile = () => {
+    squares[missileIndex].classList.remove('missile')
+    missileIndex -= 19
+    squares[missileIndex].classList.add('missile')
 
+}
 
 const moveSpaceship = (e) => {
     // removes the last spaceship class, if not they just clone themselves
@@ -48,19 +54,26 @@ const moveSpaceship = (e) => {
             if(spaceshipIndex % containerWidth !== 0){
                 spaceshipIndex -= 1;
             }
-            break;
+        break;
         case "ArrowRight":
             // 265 % 19 = 18
             //as long as remainder does not equal 18, move one div to the right
             if(spaceshipIndex % containerWidth !== 18){
             spaceshipIndex += 1; 
             }
-            break;
+        break;
+        case "ArrowUp":
+            setInterval(moveMissile, 100)
+        break;
     }
+        
+    
     //after breaking out of the switch statement create a
     // spaceship class on the new div index
     squares[spaceshipIndex].classList.add('spaceship')
 }
+
+
 
 window.addEventListener('keydown', moveSpaceship)
 
