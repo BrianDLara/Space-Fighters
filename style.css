@@ -81,10 +81,3 @@ h1 {
     background-repeat: no-repeat;
     background-position: center;
 }
-
-.alien {
-    background-image: url(' ../images/purple-alien.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}

@@ -26,46 +26,47 @@ const addGreenAliens = () => {
 }
 const removeGreenAliens = () => { 
   for(let g = 0 ; g < aliens.length -45; g++){
-      squares[aliens[g]].classList.remove('green-alien')
+      squares[aliens[g]].classList.remove('green-alien', 'alien')
   }
 }
 
 const addRedAliens = () => { 
   for(let r = 15 ; r < aliens.length -30; r++){
       if(!trashCan.includes(r)){ 
-        squares[aliens[r]].classList.add('red-alien')
+        squares[aliens[r]].classList.add('red-alien', 'alien')
       }
   }
 }
 const removeRedAliens = () => { 
   for(let r = 15 ; r < aliens.length -30; r++){
-      squares[aliens[r]].classList.remove('red-alien')
+      squares[aliens[r]].classList.remove('red-alien', 'alien')
   }
 }
 
 const addYellowAliens = () => { 
   for(let y = 30 ; y < aliens.length -15; y++){
     if(!trashCan.includes(y)){ 
-      squares[aliens[y]].classList.add('yellow-alien')
+      squares[aliens[y]].classList.add('yellow-alien', 'alien')
     }
   }
 }
 const removeYellowAliens = () => { 
   for(let y = 30 ; y < aliens.length -15; y++){
-      squares[aliens[y]].classList.remove('yellow-alien')
+      squares[aliens[y]].classList.remove('yellow-alien', 'alien')
   }
 }
+
 
 const addPurpleAliens = () => { 
   for(let p = 45 ; p < aliens.length; p++){
     if(!trashCan.includes(p)){  
-    squares[aliens[p]].classList.add('purple-alien')
+    squares[aliens[p]].classList.add('purple-alien', 'alien')
     }
   }
 }
 const removePurpleAliens = () => { 
   for(let p = 45 ; p < aliens.length; p++){
-      squares[aliens[p]].classList.remove('purple-alien')
+      squares[aliens[p]].classList.remove('purple-alien', 'alien')
   }
 }
 
@@ -82,6 +83,7 @@ addGreenAliens()
 addRedAliens()
 addYellowAliens()
 addPurpleAliens()
+//Adds movement to any type of alien
 const moveAliens = () => {
   const leftEdge = aliens[0] % containerWidth === 0;
   const rightEdge = aliens[alien.length - 1] % containerWidth === containerWidth - 1;
@@ -90,81 +92,97 @@ const moveAliens = () => {
   removeYellowAliens()
   removePurpleAliens()
   for(let i = 0; i < aliens.length; i++){
-   aliens[i] += 1
+    aliens[i] += 1
   }
   addGreenAliens()
   addRedAliens()
   addYellowAliens()
   addPurpleAliens()
   
-  console.log(aliens)
+ 
+  
+  checkForGameOver()
 
 }
-setInterval(moveAliens, 1000)
+alienSpeed = setInterval(moveAliens, 40)
 
 
 const moveSpaceship = (e) => {
-    let missileIndex = spaceshipIndex
-    // removes the last spaceship class, if not they just clone themselves
-    squares[spaceshipIndex].classList.remove('spaceship')
-    squares[missileIndex].classList.remove('missile')
-    const moveMissile = () => {
-        if (squares[missileIndex] !== undefined){ 
-        squares[missileIndex].classList.remove('missile')
-        missileIndex -= 19
-        squares[missileIndex].classList.add('missile')
-        console.log(squares[missileIndex])
-        
-        if (squares[missileIndex].classList.contains('purple-alien')){
-                squares[missileIndex].classList.remove('purple-alien') 
-                squares[missileIndex].classList.remove('missile') 
-               
-                clearInterval(shoot)
-        }else if(squares[missileIndex].classList.contains('yellow-alien')){
-            squares[missileIndex].classList.remove('yellow-alien')
-            squares[missileIndex].classList.remove('missile') 
-            
-        }else if(squares[missileIndex].classList.contains('red-alien')){
-            squares[missileIndex].classList.remove('red-alien') 
-            squares[missileIndex].classList.remove('missile') 
-           
-        }else if(squares[missileIndex].classList.contains('green-alien')){
-            squares[missileIndex].classList.remove('green-alien') 
-            squares[missileIndex].classList.remove('missile') 
-            
+  // removes the last spaceship class, if not they just clone themselves
+  squares[spaceshipIndex].classList.remove('spaceship')
+  //spaceshop moves from div 247 - 265 
+  switch (e.key) {
+    case "ArrowLeft":
+        //247 % 19 = 0, 
+        //as long as remainder does not equal 0, move one div to the left
+        if(spaceshipIndex % containerWidth !== 0){
+            spaceshipIndex -= 1;
         }
+    break;
+    case "ArrowRight":
+        // 265 % 19 = 18
+        //as long as remainder does not equal 18, move one div to the right
+        if(spaceshipIndex % containerWidth !== 18){
+        spaceshipIndex += 1; 
+        }
+    break;
+  }
+  //after breaking out of the switch statement create a
+  // spaceship class on the new div index
+  squares[spaceshipIndex].classList.add('spaceship')
+}
+
+const shootMissiles = (e) => {
+  let missileIndex = spaceshipIndex
+  squares[missileIndex].classList.remove('missile')
+
+  const moveMissile = () => {
+    if (squares[missileIndex] !== undefined){ 
+    squares[missileIndex].classList.remove('missile')
+    missileIndex -= 19
+    squares[missileIndex].classList.add('missile')
+    
+    
+      if (squares[missileIndex].classList.contains('purple-alien')){
+              squares[missileIndex].classList.remove('purple-alien') 
+              squares[missileIndex].classList.remove('missile') 
+            
+              clearInterval(shoot)
+      }else if(squares[missileIndex].classList.contains('yellow-alien')){
+          squares[missileIndex].classList.remove('yellow-alien')
+          squares[missileIndex].classList.remove('missile') 
+          
+      }else if(squares[missileIndex].classList.contains('red-alien')){
+          squares[missileIndex].classList.remove('red-alien') 
+          squares[missileIndex].classList.remove('missile') 
+        
+      }else if(squares[missileIndex].classList.contains('green-alien')){
+          squares[missileIndex].classList.remove('green-alien') 
+          squares[missileIndex].classList.remove('missile') 
+          
+      }
         const removeAliens = aliens.indexOf(missileIndex)
         trashCan.push(removeAliens)
-        
-        }
-        
-    }
-   
-    //spaceshop moves from div 247 - 265 
-    switch (e.key) {
-        case "ArrowLeft":
-            //247 % 19 = 0, 
-            //as long as remainder does not equal 0, move one div to the left
-            if(spaceshipIndex % containerWidth !== 0){
-                spaceshipIndex -= 1;
-            }
-        break;
-        case "ArrowRight":
-            // 265 % 19 = 18
-            //as long as remainder does not equal 18, move one div to the right
-            if(spaceshipIndex % containerWidth !== 18){
-            spaceshipIndex += 1; 
-            }
-        break;
-        case "ArrowUp":
-            shoot = setInterval(moveMissile, 150)
-        break;
-    }
-    //after breaking out of the switch statement create a
-    // spaceship class on the new div index
-    squares[spaceshipIndex].classList.add('spaceship')
     
+    }
+  }
+  switch (e.key) {
+    case "ArrowUp":
+          shoot = setInterval(moveMissile, 150)
+      break;
+  }
 }
+
+const checkForGameOver = () => {
+  if(squares[spaceshipIndex].classList.contains('alien', 'spaceship')){
+    console.log(`Game Over`)
+    clearInterval(shoot)
+    clearInterval(alienSpeed)
+    
+  }
+}
+
+
 
 
 
@@ -172,3 +190,4 @@ const moveSpaceship = (e) => {
 
 
 window.addEventListener('keydown', moveSpaceship)
+window.addEventListener('keydown', shootMissiles)
