@@ -1,4 +1,13 @@
+const backgroundMusic = new Audio('../sounds/space.mp3')
+backgroundMusic.loop = true
+
+const shootSound = new Audio('../sounds/shoot2.mp3')
+
+const gameOver = new Audio('../sounds/dead.mp3')
 const container = document.querySelector('#container')
+const playerScore = document.querySelector('#player-score')
+const hiScore = document.querySelector('#hi-score')
+
 for (let i=0; i < 285 ; i++){
     let cell = document.createElement('div')
     cell.id = `div` + i;
@@ -15,7 +24,7 @@ let spaceship = squares[spaceshipIndex]
 let shoot;
 let trashCan = []
 
-
+backgroundMusic.play();
 //green aliens
 const addGreenAliens = () => { 
   for(let g = 0 ; g < aliens.length -45; g++){
@@ -78,6 +87,7 @@ let aliens = [
   
 ]
 
+
 const alien = document.querySelectorAll('.alien')
 addGreenAliens()
 addRedAliens()
@@ -100,11 +110,14 @@ const moveAliens = () => {
   addPurpleAliens()
   
  
+  //every interval the game checks for a game over, a win, accumulates point, and checks for a hi-score
+  checkForGameOver();
+  checkForWin();
+  addScore();
   
-  checkForGameOver()
 
 }
-alienSpeed = setInterval(moveAliens, 40)
+alienSpeed = setInterval(moveAliens, 6000)
 
 
 const moveSpaceship = (e) => {
@@ -168,13 +181,16 @@ const shootMissiles = (e) => {
   }
   switch (e.key) {
     case "ArrowUp":
-          shoot = setInterval(moveMissile, 150)
+      shootSound.play()
+      shoot = setInterval(moveMissile, 150)
       break;
   }
 }
 
 const checkForGameOver = () => {
   if(squares[spaceshipIndex].classList.contains('alien', 'spaceship')){
+    backgroundMusic.pause()
+    gameOver.play()
     console.log(`Game Over`)
     clearInterval(shoot)
     clearInterval(alienSpeed)
@@ -182,9 +198,23 @@ const checkForGameOver = () => {
   }
 }
 
+const checkForWin = () => {
+  if(!squares.classList.contain('alien')){
+    console.log(`You Win`)
+  }
+}
+
+const addScore = () => {
+  let sumScore = 0
+  if(squares[missileIndex].classList.contains('alien', 'missile')){
+    sumScore += 1
+    playerScore.innerText = sumScore;
+  }
+}
 
 
 
+console.log(squares)
 
 
 
