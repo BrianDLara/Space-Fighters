@@ -7,23 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="http://fonts.cdnfonts.com/css/thumbs-down" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script defer src="app.js" charset="utf-8"></script>
-    <title>Space Fighters</title>
+
+    <script defer src="intro.js"></script>
+    <title>Space Fighters Intro</title>
 </head>
 
-<body>
-    <header>
-        <h1>Space&nbsp;&nbsp;Fighters</h1>
-    </header>
-    <section>
-        <div id="counters">
-            <h3>Score: <span id="player-score">0</span></h3>
-            <h3>Hi-Score: <span id="hi-score">0</span></h3>
-        </div>
-    </section>
-    <section id="container">
+<body id="game-over-body">
+    <video id="background-video" autoplay loop muted poster="../images/space-poster.png">
+        <source src="../videos/space.mp4" type="video/mp4">
+    </video>
 
-    </section>
+    <h1 id="intro">Space&nbsp;&nbsp;&nbsp;Fighters</h1>
+
+    <a href="space-fighters.html"><button id="play-btn">Play Game</button></a>
 </body>
 
 </html>
