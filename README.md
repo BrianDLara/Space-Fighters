@@ -56,10 +56,6 @@
 
 ![image](https://i.imgur.com/IuDCceG.png)
 
-> #### **Video Preview (Under Development - *content subject to change*)**
-https://user-images.githubusercontent.com/96392130/193488022-8d13f66b-c413-4547-a7bf-7e3d6942e7f6.mp4
-
-
 ### **_Task Lists_** :clipboard:
 - [ ] Make difficulty levels
 - [x] Make a welcome page
