@@ -31,7 +31,7 @@ let containerWidth = 19;
 let loseBorder = 266;
 let highestScore = 0;
 let score = 0;
-let num = 1;
+let moveDirection = 1;
 let filterAliens = 0;
 let movingRight = true;
 let graveyard = [];
@@ -110,7 +110,7 @@ let aliens = [
   ]
 
 // created a function call startGame so it can be easier to reset the game 
-const startGame = () => { 
+const startGame = () => {  
 //turns the music back one since game over turns it off
 backgroundMusic.play();
 
@@ -119,21 +119,19 @@ addGreenAliens();
 addRedAliens();
 addYellowAliens();
 addPurpleAliens();
-
 //this function adds movement to all aliens and creates border logic
 const moveAliens = () => {
   //since I have a square grid all values on the left most side return 0
   //as long as my remainder is 0, the aliens will hit a border
   //0 % 19=0 || 19 % 19=0 || 38 % 19=0
   const leftBorder = aliens[0] % containerWidth === 0;
-
+  // // .classList.contains('purple-alien')
   //same logic, as long as my remainder is 18 the aliens will hit a border on the right most side
   const rightBorder = aliens[59] % containerWidth === 18;
   removeGreenAliens();
   removeRedAliens();
   removeYellowAliens();
   removePurpleAliens();
-
   //if aliens hit the left border do this
   if(leftBorder && !movingRight) {
     for(let i = 0; i < aliens.length; i++){
@@ -141,12 +139,12 @@ const moveAliens = () => {
       aliens[i] += 18;
 
       //changes the direction to the right
-      num = 1
+      moveDirection = 1
 
       movingRight = true;
     }
   }
-
+ 
   //if aliens hit the right border do this
   if(rightBorder && movingRight) {
     //loops through the aliens array and work with its values
@@ -157,7 +155,7 @@ const moveAliens = () => {
       aliens[i] += 20;
       
       // change the direction to the left
-      num = -1;
+      moveDirection = -1;
       
       //break didn't work so I added a boolean and that seemed to help
       movingRight = false;
@@ -166,7 +164,7 @@ const moveAliens = () => {
   
   //moves the aliens 1 space
   for(let i = 0; i < aliens.length; i++){
-    aliens[i] += num;
+    aliens[i] += moveDirection;
   }
   addGreenAliens();
   addRedAliens();
@@ -306,6 +304,9 @@ const checkForGameOver = () => {
 
 
 const reset = () => {
+  //resets the moving direction
+  moveDirection = 1;
+  movingRight = true;
   //prevents setInterval from duplicating
   clearInterval(alienSpeed);
   //clears the whole board
@@ -331,6 +332,9 @@ const reset = () => {
   addRedAliens();
   addYellowAliens();
   addPurpleAliens();
+  // if(moveDirection === -1){
+  //   moveDirection = 1;
+  // }
   //resets
   startGame();
 }

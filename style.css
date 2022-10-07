@@ -31,6 +31,12 @@ h3 {
     margin: 0 3rem;
 }
 
+#playInstructions {
+    color: white;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+}
+
 
 #counters {
     display: inline-flex;
@@ -235,9 +241,33 @@ h3 {
     }
 
     #message {
-        position: absolute;
-        top: 180px;
+        position: relative;
+        top: 65px;
         font-size: 2rem;
-        left: 90px;
+        left: 20px;
     }
+
+    #playInstructions {
+        font-size: 1.2rem;
+        margin-top: 3rem;
+    }
+}
+
+@media (max-width: 500px) {
+    h3 {
+
+        margin: 1rem .7rem 5rem 0;
+    }
+
+    #message {
+        font-size: 1.5rem;
+    }
+
+    #playInstructions {
+        position: relative;
+        font-size: 1rem;
+        margin-top: 3rem;
+        left: -15px;
+    }
+
 }

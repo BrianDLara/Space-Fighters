@@ -10,7 +10,7 @@
 
 ### **_Description_**
 
-#### Created a space shooter game. 
+#### Created a space shooter game. Your task is to shoot down all the aliens before they get to you. 
 **Deployment Link:** [Surge](http://www.space-fighters.surge.sh)
 
 ---
@@ -19,11 +19,11 @@
 
   - github
 
-  - gimp
+  - gimp (image  editor)
 
-  - audacity
+  - audacity (music editor)
 
-  - screen cast
+  - screen cast (screen recorder)
 
 - VS Code
   - Vanilla JavaScript
@@ -35,15 +35,14 @@
 
 ### **_Getting Started_**
 
-#### Create a github repo.
+#### - Follow the Surge link where the game was deployed.
 
-#### Fork and clone the repo
+#### - You will arrive at the welcome page, click on start game to proceed.
 
-#### Open the repo with vs code
+#### - Used the left and Right arrow keys to move the spaceship, and press the up arrow key to shoot.
 
-#### Create a pseudo code to get my ideas in order
+#### - The game ends when you either destroy all the aliens, or the aliens destroy you.
 
-#### make a presentable working version
 
 ---
 
