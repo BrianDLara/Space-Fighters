@@ -219,8 +219,7 @@ const shootMissiles = (e) => {
   // function where all my missile logic is at
   const moveMissile = () => {
     squares[missileIndex].classList.remove('missile');
-    //my bullets were traveling off the screen so this is a quick way to patch the infinite loop
-    //need to add border logic to this section
+  //if statement that prevents missiles from leaving the border
     if (!squares[missileIndex] !== undefined && missileIndex >=containerWidth){ 
     squares[missileIndex].classList.remove('missile');
     missileIndex -= 19;

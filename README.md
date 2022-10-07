@@ -11,7 +11,7 @@
 ### **_Description_**
 
 #### Created a space shooter game. 
-**Deployment Link:** [Surge](space-fighters.surge.sh)
+**Deployment Link:** [Surge](http://www.space-fighters.surge.sh)
 
 ---
 
