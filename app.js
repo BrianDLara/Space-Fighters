@@ -1,8 +1,12 @@
+//sounds
 const backgroundMusic = new Audio('../sounds/space.mp3')
 backgroundMusic.loop = true
 const shootSound = new Audio('../sounds/shoot2.mp3')
 const gameOver = new Audio('../sounds/dead.mp3')
+backgroundMusic.play();
+const winSound = new Audio('../sounds/win.mp3')
 
+// calling for variables
 const container = document.querySelector('#container')
 const playerScore = document.querySelector('#player-score')
 const hiScore = document.querySelector('#hi-score')
@@ -16,21 +20,23 @@ for (let i=0; i < 285 ; i++){
     cell.className = 'cells';
     container.appendChild(cell)
 }
-
 const cells = document.querySelectorAll('.cells')
-let spaceshipIndex = 256
-let containerWidth = 19;
-let highestScore = 0;
-let score = 0
-let num = 1;
-let movingRight = true
-let squares = Array.from(cells);
-squares[spaceshipIndex].classList.add('spaceship')
-let spaceship = squares[spaceshipIndex]
-let graveyard = []
 
-backgroundMusic.play();
-//green aliens
+//declaring variables globaly
+let spaceshipIndex = 256;
+let containerWidth = 19;
+let loseBorder = 266;
+let highestScore = 0;
+let score = 0;
+let num = 1;
+let filterAliens = 0;
+let movingRight = true;
+let squares = Array.from(cells);
+squares[spaceshipIndex].classList.add('spaceship');
+let spaceship = squares[spaceshipIndex];
+let graveyard = [];
+
+//creates green aliens
 const addGreenAliens = () => { 
   for(let g = 0 ; g < aliens.length -45; g++){
     if(!graveyard.includes(g)){   
@@ -38,13 +44,15 @@ const addGreenAliens = () => {
     }
   }
 }
+
+//removes green aliens
 const removeGreenAliens = () => { 
   for(let g = 0 ; g < aliens.length -45; g++){
       squares[aliens[g]].classList.remove('green-alien', 'alien')
   }
 }
 
-//red aliens
+//creates red aliens
 const addRedAliens = () => { 
   for(let r = 15 ; r < aliens.length -30; r++){
       if(!graveyard.includes(r)){ 
@@ -52,13 +60,15 @@ const addRedAliens = () => {
       }
   }
 }
+
+//removes red aliens
 const removeRedAliens = () => { 
   for(let r = 15 ; r < aliens.length -30; r++){
       squares[aliens[r]].classList.remove('red-alien', 'alien')
   }
 }
 
-//yellow aliens
+//creates yellow aliens
 const addYellowAliens = () => { 
   for(let y = 30 ; y < aliens.length -15; y++){
     if(!graveyard.includes(y)){ 
@@ -66,13 +76,15 @@ const addYellowAliens = () => {
     }
   }
 }
+
+//removes yellow aliens
 const removeYellowAliens = () => { 
   for(let y = 30 ; y < aliens.length -15; y++){
       squares[aliens[y]].classList.remove('yellow-alien', 'alien')
   }
 }
 
-//purple aliens
+//creates purple aliens
 const addPurpleAliens = () => { 
   for(let p = 45 ; p < aliens.length; p++){
     if(!graveyard.includes(p)){  
@@ -80,28 +92,43 @@ const addPurpleAliens = () => {
     }
   }
 }
+
+//removes purple aliens
 const removePurpleAliens = () => { 
   for(let p = 45 ; p < aliens.length; p++){
       squares[aliens[p]].classList.remove('purple-alien', 'alien')
   }
 }
 
+//I assigned the aliens to this values, not conventional if I want to make new levels
+//for a future update, I'll randomly generate them
 let aliens = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ,13, 14,
   19, 20 , 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 ,31, 32, 33,
   38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52,
   57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71
-  
-]
+  ]
+
+// created a function call startGame so it can be easier to reset the game 
 const startGame = () => { 
+//turns the music back one since game over turns it off
+backgroundMusic.play();
+
+//creates the aliens on the grid
 addGreenAliens()
 addRedAliens()
 addYellowAliens()
 addPurpleAliens()
-//Adds movement to any type of alien
+
+//this function adds movement to all aliens and creates border logic
 const moveAliens = () => {
+  //since I have a square grid all values on the left most side return 0
+  //as long as my remainder is 0, the aliens will hit a border
+  //0 % 19=0 || 19 % 19=0 || 38 % 19=0
   const leftBorder = aliens[0] % containerWidth === 0;
-  const rightBorder = aliens[aliens.length - 1] % containerWidth === containerWidth - 1;
+
+  //same logic, as long as my remainder is 18 the aliens will hit a border on the right most side
+  const rightBorder = aliens[aliens.length - 1] % containerWidth === 18;
 
   removeGreenAliens()
   removeRedAliens()
@@ -109,28 +136,35 @@ const moveAliens = () => {
   removePurpleAliens()
 
 
-
+  //if aliens hit the right border do this
   if(rightBorder && movingRight) {
+    //loops through the aliens array and work with its values
     for(let i = 0; i < aliens.length; i++){
-      // + 1 forced the aliens to start at the border
-      aliens[i] += containerWidth + 1
+  
+      // forced the aliens to move down and to start at the border
+      //by moving each alien 20 spaces 
+      aliens[i] += 20
+      
       // change the direction to the left
       num = -1
+      
       //break didn't work so I added a boolean and that seemed to help
       movingRight = false
     }
   }
-
+  //if aliens hit the left border do this
   if(leftBorder && !movingRight) {
     for(let i = 0; i < aliens.length; i++){
-      // - 1 forces the aliens to the left border
-      aliens[i] += containerWidth - 1
+      // moved all the aliens 18 spaces
+      aliens[i] += 18
+      
       //changes the direction to the right
       num = 1
       movingRight = true
     }
   }
-
+ 
+  //moves the aliens 1 space
   for(let i = 0; i < aliens.length; i++){
     aliens[i] += num
   }
@@ -141,11 +175,11 @@ const moveAliens = () => {
   
   
   //every interval the game checks for a game over,and a win
-  // checkForWin();
+  checkForWin();
   checkForGameOver();
   
 }
-alienSpeed = setInterval(moveAliens, 300)
+alienSpeed = setInterval(moveAliens, 500)
 }
 
 
@@ -175,59 +209,70 @@ const moveSpaceship = (e) => {
   squares[spaceshipIndex].classList.add('spaceship')
 }
 
+
+//broke appart the switch statements because the code was becoming too confusing
 const shootMissiles = (e) => {
   let shoot;
+  //the missile start point will always follow the spaceship
   let missileIndex = spaceshipIndex
-  squares[missileIndex].classList.remove('missile')
 
+  // function where all my missile logic is at
   const moveMissile = () => {
-    if (squares[missileIndex] !== undefined){ 
+    //my bullets were traveling off the screen so this is a quick way to patch the infinite loop
+    //need to add border logic to this section
+    if (!squares[missileIndex] !== undefined){ 
     squares[missileIndex].classList.remove('missile')
     missileIndex -= 19
     squares[missileIndex].classList.add('missile')
-    
-    
-    
+      
+     //what happens if a missile hits a purple alien
       if (squares[missileIndex].classList.contains('purple-alien')){
-        squares[missileIndex].classList.remove('purple-alien') 
-        squares[missileIndex].classList.remove('missile') 
-        clearInterval(shoot)
-        addScore();
-        
+      squares[missileIndex].classList.remove('purple-alien') 
+      squares[missileIndex].classList.remove('missile') 
+      clearInterval(shoot)
+      addScore();
+      
+      //what happens if a missile hits a yellow alien
       }else if(squares[missileIndex].classList.contains('yellow-alien')){
           squares[missileIndex].classList.remove('yellow-alien')
           squares[missileIndex].classList.remove('missile') 
           clearInterval(shoot)
           addScore()
 
+      //what happens if a missile hits a red alien
       }else if(squares[missileIndex].classList.contains('red-alien')){
           squares[missileIndex].classList.remove('red-alien') 
           squares[missileIndex].classList.remove('missile') 
           clearInterval(shoot)
           addScore()
-
+      //what happens if a missile hits a green alien
       }else if(squares[missileIndex].classList.contains('green-alien')){
           squares[missileIndex].classList.remove('green-alien') 
           squares[missileIndex].classList.remove('missile') 
           clearInterval(shoot)
           addScore()
       }
+      
+      //I was having a glitch were all the aliens kept re-appearing every time they moved 1 space,
+      // so I moved and stored them in a empty array.
       if (squares[missileIndex].classList.contains('alien')){ 
-        const removeAliens = aliens.indexOf(missileIndex)
-        graveyard.push(removeAliens)
-      }
-    
+        const deadAliens = aliens.indexOf(missileIndex)
+        graveyard.push(deadAliens)
+        //https://dev.to/soyleninjs/3-ways-to-remove-duplicates-in-an-array-in-javascript-259o
+        //variables were repeating if I shot to fast so I'm filtering them and deleting duplicates
+        filterAliens = [...new Set(graveyard)];
+      } 
     }
   }
   switch (e.key) {
     case "ArrowUp":
       shootSound.play()
       shoot = setInterval(moveMissile, 250)
-      
   }
   
 }
 
+//if a cell grom the grid contains a class alien and a class spaceship, it will cause gameover
 const checkForGameOver = () => {
   if(squares[spaceshipIndex].classList.contains('alien', 'spaceship')){
     backgroundMusic.pause()
@@ -238,32 +283,72 @@ const checkForGameOver = () => {
     removeGreenAliens()
     removeRedAliens()
     removeYellowAliens()
-    removePurpleAliens()}
-  //  }else if(){
-
-  //  }
+    removePurpleAliens()
+    
+  }
+// I wasn't getting a game over if the aliens didn't hit the ship, so now if the aliens get to the last row,
+// player will get game over
+  for (let i = 0; i < aliens.length; i++){
+    if(aliens[i] > loseBorder){
+      backgroundMusic.pause()
+      gameOver.play()
+      message.innerText = `GAME OVER`
+      clearInterval(alienSpeed)
+      hiScoreCount()
+      removeGreenAliens()
+      removeRedAliens()
+      removeYellowAliens()
+      removePurpleAliens()
+    }
+  }
 }
 
+
 const reset = () => {
+  //prevents setInterval from duplicating
+  clearInterval(alienSpeed)
+  //clears the whole board
+  removeGreenAliens()
+  removeRedAliens()
+  removeYellowAliens()
+  removePurpleAliens()
+  message.innerText = ""
+  playerScore.innerText = 0
+  //re-assigns the aliens
   aliens = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ,13, 14,
     19, 20 , 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 ,31, 32, 33,
     38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52,
     57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71
-    
   ]
+  //emties the alien graveyard
+  graveyard = []
+  filterAliens = 0
+  score = 0;
+  //adds the aliens again
+  addGreenAliens()
+  addRedAliens()
+  addYellowAliens()
+  addPurpleAliens()
+  //resets
   startGame();
-  
 }
 
-// if all the aliens are on the graveyard, you win
-// const checkForWin = () => {
-//   if(!squares.classList.contains('aliens')){
-//     console.log(`You Win`)
-//     hiScoreCount()
 
-//   }
-// }
+const checkForWin = () => {
+  if(filterAliens.length === aliens.length){
+    backgroundMusic.pause()
+      winSound.play()
+      message.innerText = `YOU WIN!`
+      clearInterval(alienSpeed)
+      hiScoreCount()
+      removeGreenAliens()
+      removeRedAliens()
+      removeYellowAliens()
+      removePurpleAliens()
+  }
+ }
+
 
 
 const addScore = () => {
@@ -276,14 +361,17 @@ const hiScoreCount = () => {
       highestScore = score
       hiScore.innerText = score
   }
+  //prevents highscore from resetting
   return highestScore
 }
 
-//moves the all aliens 1 square at a time every 300ms
-
-
+//moves spaceship
 window.addEventListener('keydown', moveSpaceship)
+
+//shots the missile
 window.addEventListener('keydown', shootMissiles)
+
+//everytime you click reset the game re-starts
 restartBtn.addEventListener('click', reset)
 
 startGame();
